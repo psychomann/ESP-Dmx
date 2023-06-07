@@ -26,7 +26,11 @@
 #define BREAKFORMAT    SERIAL_8N1
 
 bool dmxStarted = false;
-int sendPin = 2;		//dafault on ESP8266
+#ifdef ESP32
+int sendPin = 4;		// default on ESP32 - can't upload sketch with GPIO_D2 (==2) connected on board
+#else
+int sendPin = 2;		// default on ESP8266 (GPIO_D4)
+#endif
 
 //DMX value array and size. Entry 0 will hold startbyte
 uint8_t dmxData[dmxMaxChannel] = {};
